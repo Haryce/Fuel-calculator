@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:FuelConsumptionCalculator"
         mc:Ignorable="d"
         Title="Калькулятор расхода топлива" Height="450" Width="600"
@@ -15,19 +14,19 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#FF4E7D9E"/>
         </Style>
-        
+
         <Style TargetType="Label">
             <Setter Property="Padding" Value="0,5"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
-        
+
         <Style TargetType="TextBox">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="#333"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#555"/>
         </Style>
-        
+
         <Style TargetType="Button">
             <Setter Property="Background" Value="#FF4E7D9E"/>
             <Setter Property="Foreground" Value="White"/>
@@ -35,12 +34,12 @@
             <Setter Property="Padding" Value="15,5"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
-        
+
         <Style TargetType="ProgressBar">
             <Setter Property="Foreground" Value="#FF4E7D9E"/>
             <Setter Property="Background" Value="#333"/>
         </Style>
-        
+
         <Style TargetType="DataGrid">
             <Setter Property="Background" Value="#222"/>
             <Setter Property="Foreground" Value="White"/>
@@ -49,23 +48,22 @@
             <Setter Property="AlternatingRowBackground" Value="#2A2A2A"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
         </Style>
-        
+
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#444"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="10" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <GroupBox Grid.Row="0" Header="Ввод данных" Margin="0,0,0,10">
             <StackPanel>
                 <Grid Margin="5">
@@ -78,39 +76,39 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Label Grid.Row="0" Grid.Column="0" Content="Пробег (км):"/>
                     <TextBox Grid.Row="0" Grid.Column="1" x:Name="DistanceTextBox" Margin="5" Text="100"/>
-                    
+
                     <Label Grid.Row="1" Grid.Column="0" Content="Израсходовано топлива (л):"/>
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="FuelTextBox" Margin="5" Text="10"/>
-                    
+
                     <Label Grid.Row="2" Grid.Column="0" Content="Цена за литр (руб):"/>
                     <TextBox Grid.Row="2" Grid.Column="1" x:Name="PriceTextBox" Margin="5" Text="50"/>
                 </Grid>
-                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="CalculateButton" Content="Рассчитать" Click="CalculateButton_Click"/>
                     <Button x:Name="ClearButton" Content="Очистить" Click="ClearButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
-        
+
         <GroupBox Grid.Row="1" Header="Результаты" Margin="0,0,0,10">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <StackPanel Grid.Column="0">
                     <Label Content="Расход топлива:" FontWeight="Bold"/>
                     <TextBlock x:Name="ConsumptionText" FontSize="16" Margin="0,5" Foreground="White"/>
-                    
+
                     <Label Content="Стоимость поездки:" FontWeight="Bold" Margin="0,10,0,0"/>
                     <TextBlock x:Name="CostText" FontSize="16" Margin="0,5" Foreground="White"/>
                 </StackPanel>
-                
+
                 <StackPanel Grid.Column="1">
                     <Label Content="Прогресс расхода:" FontWeight="Bold"/>
                     <ProgressBar x:Name="ConsumptionProgress" Height="20" Margin="0,5" Minimum="0" Maximum="30"/>
@@ -118,23 +116,8 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-        
-        <GroupBox Grid.Row="2" Header="Визуализация расхода" Margin="0,0,0,10">
-            <lvc:CartesianChart x:Name="ConsumptionChart" LegendLocation="Right" Background="#222">
-                <lvc:CartesianChart.Series>
-                    <lvc:ColumnSeries Title="Расход (л/100км)" Values="{Binding ConsumptionValues}" 
-                                    Fill="#FF4E7D9E"/>
-                </lvc:CartesianChart.Series>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Поездки" Labels="{Binding Labels}" Foreground="White"/>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="л/100км" MinValue="0" Foreground="White"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </GroupBox>
-       
-        <GroupBox Grid.Row="3" Header="История расчетов">
+
+        <GroupBox Grid.Row="2" Header="История расчетов">
             <DataGrid x:Name="HistoryDataGrid" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*" Foreground="White"/>
